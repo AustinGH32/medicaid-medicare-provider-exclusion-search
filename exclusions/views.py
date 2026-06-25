@@ -37,7 +37,6 @@ def search(request):
     # filter by source label
     # 'both' is a special case - finds records whose NPI appears in multiple sources
     if source == 'both':
-        # find all NPIs that appear in more than one source
         from django.db.models import Count
         both_npis = (
             MainExclusion.objects
@@ -48,17 +47,29 @@ def search(request):
             .values_list('npi', flat=True)
         )
         results = results.filter(npi__in=both_npis)
+        npi_to_sources = {}
+        for npi in both_npis:
+            sources = (
+                MainExclusion.objects
+                .filter(npi=npi)
+                .values_list('source', flat=True)
+                .distinct()
+            )
+            npi_to_sources[npi] = ' & '.join(sorted(set(sources)))
+        results = list(results.order_by('last_name', 'first_name')[:100])
+        for result in results:
+            result.combined_source = npi_to_sources.get(result.npi, result.source)
     elif source:
-        # filter by exact source label
+        # filter by exact source label for all non-both sources
         results = results.filter(source=source)
-
-    # sort alphabetically and limit to 100 records
-    results = results.order_by('last_name', 'first_name')[:100]
-
+        results = results.order_by('last_name', 'first_name')[:100]
+    else:
+        # no source filter - show everything
+        results = results.order_by('last_name', 'first_name')[:100]
     return render(request, 'exclusions/search.html', {
-        'results': results,   # the filtered records to display in the table
-        'name_query': name_query,      # keeps the search box filled in after searching
-        'npi_query': npi_query,        # keeps the NPI search box filled in after searching
-        'state': state,       # keeps the state dropdown selected after searching
-        'source': source,     # keeps the source dropdown selected after searching
+        'results': results,
+        'name_query': name_query,
+        'npi_query': npi_query,
+        'state': state,
+        'source': source,
     })
