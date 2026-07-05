@@ -27,7 +27,6 @@ provider exclusion records across multiple data sources.
 - Unified main exclusion table aggregating all sources
 - Filter results by source
 - Bulk import via CSV/Excel management commands
-- Full-text search with GIN indexing
 
 ## Setup
 
