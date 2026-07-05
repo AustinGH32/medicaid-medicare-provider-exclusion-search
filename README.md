@@ -76,7 +76,7 @@ DB_HOST=localhost
 
 DB_PORT=5432
 
-You can generate one by running:
+You can generate a secret key by running:
 ```bash
 python -c "import secrets; print(secrets.token_urlsafe(50))"
 ```
