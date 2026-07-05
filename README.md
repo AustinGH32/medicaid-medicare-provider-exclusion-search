@@ -30,18 +30,81 @@ provider exclusion records across multiple data sources.
 - Full-text search with GIN indexing
 
 ## Setup
-1. Clone the repo:
-   git clone https://github.com/AustinGH32/medicaid-provider-exclusion-search.git
 
-2. Install dependencies:
-   pip install -r requirements.txt
+### 1. Clone the repo
+```bash
+git clone https://github.com/AustinGH32/medicaid-provider-exclusion-search.git
+cd medicaid-provider-exclusion-search
+```
 
-3. Create a .env file with:
-   SECRET_KEY=your_secret_key
-   DB_PASSWORD=your_db_password
+### 2. Create and activate a virtual environment
+```bash
+python -m venv .venv
 
-4. Run migrations:
-   python manage.py migrate
+# Windows
+.venv\Scripts\activate
 
-5. Start the server:
-   python manage.py runserver
+# Mac/Linux
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Create the PostgreSQL database
+Open psql and run:
+```sql
+CREATE DATABASE oig_exclusions;
+```
+
+### 5. Create a .env file
+Create a file called `.env` in the root of the project with the following:
+SECRET_KEY=any-long-random-string-you-make-up-yourself
+DB_NAME=oig_exclusions
+DB_USER=postgres
+DB_PASSWORD=your_postgres_password
+DB_HOST=localhost
+DB_PORT=5432
+
+You can generate one by running:
+```bash
+python -c "import secrets; print(secrets.token_urlsafe(50))"
+```
+
+### 6. Run migrations
+```bash
+python manage.py migrate
+```
+
+### 7. Import the data
+Run each import command with the path to your data file:
+```bash
+python manage.py import_exclusions path/to/UPDATED.csv
+python manage.py import_georgia path/to/georgia.xlsx
+python manage.py import_california path/to/california.csv
+python manage.py import_new_york path/to/new_york.xlsx
+python manage.py import_ohio path/to/ohio.xlsx
+python manage.py import_north_dakota path/to/north_dakota.xlsx
+python manage.py import_north_carolina path/to/north_carolina.xlsx
+python manage.py import_oregon path/to/oregon.xlsx
+python manage.py import_pennsylvania path/to/pennsylvania.csv
+python manage.py import_new_jersey path/to/new_jersey.pdf
+```
+
+### 8. Populate the main exclusion table
+```bash
+python manage.py populate_main
+```
+
+### 9. Start the server
+```bash
+python manage.py runserver
+```
+
+### 10. Open the app
+Open your browser and go to:
+http://127.0.0.1:8000
+
+You should see the search page with all records loaded.
