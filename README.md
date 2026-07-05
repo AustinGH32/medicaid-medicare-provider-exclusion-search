@@ -63,9 +63,13 @@ CREATE DATABASE oig_exclusions;
 Create a file called `.env` in the root of the project with the following:
 SECRET_KEY=any-long-random-string-you-make-up-yourself
 DB_NAME=oig_exclusions
+
 DB_USER=postgres
+
 DB_PASSWORD=your_postgres_password
+
 DB_HOST=localhost
+
 DB_PORT=5432
 
 You can generate one by running:
