@@ -60,7 +60,9 @@ CREATE DATABASE oig_exclusions;
 ```
 
 ### 5. Create a .env file
+
 Create a file called `.env` in the root of the project with the following:
+
 
 SECRET_KEY=any-long-random-string-you-make-up-yourself
 
