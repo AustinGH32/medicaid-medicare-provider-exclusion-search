@@ -88,16 +88,16 @@ python manage.py migrate
 ### 7. Import the data
 Run each import command with the path to your data file:
 ```bash
-python manage.py import_exclusions path/to/UPDATED.csv
-python manage.py import_georgia path/to/georgia.xlsx
-python manage.py import_california path/to/california.csv
-python manage.py import_new_york path/to/new_york.xlsx
-python manage.py import_ohio path/to/ohio.xlsx
-python manage.py import_north_dakota path/to/north_dakota.xlsx
-python manage.py import_north_carolina path/to/north_carolina.xlsx
-python manage.py import_oregon path/to/oregon.xlsx
-python manage.py import_pennsylvania path/to/pennsylvania.csv
-python manage.py import_new_jersey path/to/new_jersey.pdf
+python manage.py import_exclusions path/to/Federal_Exclusion_List.csv
+python manage.py import_georgia path/to/Georgia_Exclusions_List.xlsx
+python manage.py import_california path/to/California_Exclusion_List.csv
+python manage.py import_new_york path/to/NYSOMIGExclusionsList.xlsx
+python manage.py import_ohio path/to/Ohio_Provider_Exclusions.xlsx
+python manage.py import_north_dakota path/to/ND_Provider_Exclusions.xlsx
+python manage.py import_north_carolina path/to/NC_Excluded_Providers.xlsx
+python manage.py import_oregon path/to/Oregon_Exclusion_List.csv
+python manage.py import_pennsylvania path/to/Pennsylvania_exclusion_list.csv
+python manage.py import_new_jersey path/to/NJ_Exclusion_List.csv
 ```
 
 ### 8. Populate the main exclusion table
